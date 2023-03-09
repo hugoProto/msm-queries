@@ -1,0 +1,96 @@
+<h1>
+  Actor #<%= @act.id %> details
+</h1>
+
+<a href="/actors" class="btn btn-block btn-outline-secondary">
+  Go back
+</a>
+
+
+<a href="/delete_actor/504" class="btn btn-block btn-outline-secondary">
+  Delete actor
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    Name
+  </dt>
+  <dd>
+    <%= @act.name %>
+  </dd>
+
+  <dt>
+    Dob
+  </dt>
+  <dd>
+    <%= @act.dob %>
+  </dd>
+
+  <dt>
+    Bio
+  </dt>
+  <dd>
+    <%= @act.bio %>
+  </dd>
+
+  <dt>
+    Image
+  </dt>
+  <dd>
+    <img src="https://image.tmdb.org/t/p/w500/hsCu1JUzQQ4pl7uFxAVFLOs9yHh.jpg" style="width:250px;">
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%=time_ago_in_words(@act.created_at) %>
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%=time_ago_in_words(@act.updated_at)%>
+  </dd>
+</dl>
+
+<hr>
+
+<h2>Filmography</h2>
+
+<table border="1">
+<% @filmography.each do |char| %>
+<% movchar = Movie.where({ :id => char.movie_id}).at(0) %>
+<% dt = Director.where({ :id => movchar.director_id}).at(0)%>
+<tr>
+  <td>
+    <%= movchar.id %>
+  </td>
+  <td>
+    <img src="https://robohash.org/<%= movchar.image %>">
+  </td>
+  <td>
+    
+    <%= movchar.title %>
+  </td>
+  <td>
+    <%= movchar.year %>
+  </td>
+  <td>
+  <%= dt.name %>
+  </td>
+  <td>
+    <%# c = movchar.where({ :actor_id => @the_id}).at(0) %>
+    <%= char.name %>
+  </td>
+  <td>
+    <a href="/movies/<%= movchar.id %>">
+    Show details
+    </a>
+  </td>
+</tr>
+<% end %>
+</table>

@@ -1,0 +1,40 @@
+ <h1>
+  List of all movies
+</h1>
+
+<hr>
+
+<table border="1">
+<% @list_of_movies.each do |m_thing| %>
+  <tr>
+    <th>
+      <%= m_thing.id %>
+    </th>
+
+    <th>
+      <img src="http://robohash.org/<%= m_thing.title %>">
+    </th>
+
+    <th>
+      <%= m_thing.title %>
+    </th>
+
+    <th>
+      <%= m_thing.year %>
+    </th>
+
+    <th>
+     <% d = Director.where({ :id => m_thing.director_id}).at(0)
+      %>
+      <%= d.name %>
+    </th>
+
+    <th>
+    <a href="/movies/<%= m_thing.id %>">
+      Show details
+    </a>  
+    </th>
+    </tr>
+
+    <% end %>
+    </table>
